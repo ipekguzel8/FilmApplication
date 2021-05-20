@@ -7,9 +7,7 @@ public class AuthCombobox extends ComboBox {
     public AuthCombobox() {
         fillCombobox();
     }
-
     private void fillCombobox() {
-
         for (EnumAuth auth : EnumAuth.values()) {
             Item item = addItem(auth);
         }

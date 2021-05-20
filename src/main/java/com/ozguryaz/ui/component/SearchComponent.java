@@ -13,28 +13,22 @@ public class SearchComponent extends HorizontalLayout {
     private Button searchButton;
     public SearchComponent() {
         setSizeFull();
-
         buildMainLayout();
         addComponent(mainLayout);
 
         setComponentAlignment(mainLayout, Alignment.MIDDLE_CENTER);
     }
-
     private void buildMainLayout() {
-
         mainLayout = new HorizontalLayout();
-
         searchField = new TextField();
         searchField.setId("searchField");
         searchField.setInputPrompt("Film veya aktör adı giriniz");
         mainLayout.addComponent(searchField);
-
         searchButton = new Button();
         searchButton.setIcon(FontAwesome.SEARCH);
         searchButton.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent clickEvent) {
-                //search
             }
         });
         mainLayout.addComponent(searchButton);

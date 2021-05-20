@@ -3,6 +3,7 @@ package com.ozguryaz.ui.page;
 import com.ozguryaz.ui.MyUI;
 import com.ozguryaz.ui.component.SearchComponent;
 import com.ozguryaz.ui.component.SyMenuBar;
+import com.ozguryaz.ui.component.UserLabel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
@@ -12,15 +13,18 @@ public class MainPage extends VerticalLayout {
         MyUI myUI= (MyUI) UI.getCurrent();
         ContentComponent contentComponent = myUI.getContentComponent();
         SearchComponent searchComponent = new SearchComponent();
+        UserLabel userLabel= new UserLabel();
+        addComponent(userLabel);
         addComponent(searchComponent);
 
-        SyMenuBar syMenuBar = new SyMenuBar();
+        SyMenuBar menuBar = myUI.getMenuBar();
 
-        addComponent(syMenuBar);
+        addComponent(menuBar);
         addComponent(contentComponent);
 
         setExpandRatio(searchComponent, 1f);
-        setExpandRatio(syMenuBar, 0.4f);
-        setExpandRatio(contentComponent, 8.6f);
+        setExpandRatio(userLabel, 0.5f);
+        setExpandRatio(menuBar, 0.5f);
+        setExpandRatio(contentComponent, 8.0f);
     }
 }

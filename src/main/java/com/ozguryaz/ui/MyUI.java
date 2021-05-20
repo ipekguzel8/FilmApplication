@@ -3,6 +3,8 @@ package com.ozguryaz.ui;
 import javax.servlet.annotation.WebServlet;
 
 import com.ozguryaz.core.domain.Film;
+import com.ozguryaz.core.domain.User;
+import com.ozguryaz.ui.component.SyMenuBar;
 import com.ozguryaz.ui.page.ContentComponent;
 import com.ozguryaz.ui.page.UserLogin;
 import com.vaadin.annotations.Theme;
@@ -30,11 +32,12 @@ public class MyUI extends UI {
     public void setMainLayout(VerticalLayout mainLayout) {
         this.mainLayout = mainLayout;
     }
-
+    private SyMenuBar menuBar;
     private VerticalLayout mainLayout;
     private ContentComponent contentComponent;
     private Film film;
     private UserLogin userLogin;
+    private User user;
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         buildMainLayout();
@@ -50,7 +53,25 @@ public class MyUI extends UI {
         this.contentComponent = contentComponent;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public SyMenuBar getMenuBar() {
+        return menuBar;
+    }
+
+    public void setMenuBar(SyMenuBar menuBar) {
+        this.menuBar = menuBar;
+    }
+
     private void buildMainLayout() {
+        menuBar= new SyMenuBar();
+        user= new User();
         mainLayout = new VerticalLayout();
         contentComponent = new ContentComponent();
         userLogin= new UserLogin("ilkGiris");

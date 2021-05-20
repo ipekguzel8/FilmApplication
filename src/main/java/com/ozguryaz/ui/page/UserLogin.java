@@ -1,26 +1,23 @@
 package com.ozguryaz.ui.page;
-
+import com.ozguryaz.core.domain.User;
+import com.ozguryaz.core.service.UserService;
 import com.ozguryaz.ui.MyUI;
 import com.ozguryaz.ui.component.SyMenuBar;
 import com.vaadin.ui.*;
 
-public class UserLogin extends HorizontalLayout {
+import java.util.List;
+
+public class UserLogin extends VerticalLayout {
     private TextField username;
     private TextField password;
     private Button loginbtn;
     private VerticalLayout mainLayout;
     public UserLogin() {
-        setSizeFull();
-        username= new TextField("Kullanıcı Adı:");
-        password= new TextField("Parola:");
-        loginbtn= new Button("Giriş");
-        addComponent(username);
-        addComponent(password);
-        addComponent(loginbtn);
+        this("");
     }
     public UserLogin(String ilkGiris){
-
         mainLayout= new VerticalLayout();
+
         setSizeFull();
         username= new TextField("Kullanıcı Adı:");
         password= new TextField("Parola:");
@@ -30,7 +27,6 @@ public class UserLogin extends HorizontalLayout {
             @Override
             public void buttonClick(Button.ClickEvent clickEvent) {
                 if(username.getValue().equals("admin") && password.getValue().equals("admin")){
-                    System.out.println("GİRDİM");
                     MyUI myUI=(MyUI) UI.getCurrent();
                     ContentComponent contentComponent = myUI.getContentComponent();
                     VerticalLayout mainLayout = myUI.getMainLayout();
@@ -40,7 +36,27 @@ public class UserLogin extends HorizontalLayout {
                     mainLayout.addComponent(mainPage);
                 }
                 else{
-                    System.out.println("GİREMEDİM");
+                    User user= new User();
+                    user.setUsername(username.getValue());
+                    user.setPassword(password.getValue());
+                    UserService userService= new UserService();
+                    List<User> allUser = userService.findAllUser(user);
+                    if(allUser!=null){
+                        System.out.println(allUser);
+                        MyUI myUI=(MyUI) UI.getCurrent();
+                        myUI.setUser(allUser.get(0));
+                        System.out.println(allUser.get(0));
+                        SyMenuBar menuBar = myUI.getMenuBar();
+                        menuBar.getGiris_yap().setVisible(false);
+                        menuBar.getCikis_yap().setVisible(true);
+                        ContentComponent contentComponent = myUI.getContentComponent();
+                        VerticalLayout mainLayout = myUI.getMainLayout();
+                        MainPage mainPage= new MainPage();
+                        VerticalLayout mainLayout1 = myUI.getMainLayout();
+                        mainLayout.removeAllComponents();
+                        mainLayout.addComponent(mainPage);
+                    }
+
                 }
             }
         });
